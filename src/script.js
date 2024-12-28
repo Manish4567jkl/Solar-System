@@ -21,7 +21,7 @@ camera.position.y = 5;
 
 const sphereGeometry = new THREE.SphereGeometry(1,32,32)
 const sunMaterial = new THREE.MeshBasicMaterial({
-  color:"#FDE2AF"
+  color:"#FFFF00"
 })
 
 
@@ -66,12 +66,19 @@ window.addEventListener("resize", () => {
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
+const clock = new THREE.Clock();
 
 
+
+
+
+//! this is used to add animations to the scene 
 const animate = () => {
+  const elapsedTime = clock.getElapsedTime();
+  earth.rotation.y += 0.01
+  earth.rotation.x += Math.sin(elapsedTime) * 10;
+  earth.rotation.z += Math.cos(elapsedTime) * 10;
   controls.update();
-  earth.rotation.y += 0.01;
-  sun.rotation.y += 0.01;
   renderer.render(scene, camera);
   window.requestAnimationFrame(animate);
 };
